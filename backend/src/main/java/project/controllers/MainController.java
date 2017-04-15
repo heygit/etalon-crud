@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import project.services.Printer;
+import project.dao.TakDao;
+import project.entities.Tak;
 
 
 @Controller
@@ -17,18 +18,17 @@ public class MainController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
 
-    private Printer printer;
-
     @Autowired
-    public MainController(Printer printer) {
-        this.printer = printer;
-    }
+    TakDao takRepository;
 
     @RequestMapping(value = "echo", method = RequestMethod.GET)
     @ResponseBody
-    public String echo(@RequestParam(value = "message") String message) {
+    public Object echo(@RequestParam(value = "message") String message) {
         LOGGER.debug("Echo performed");
-        return printer.print();
+        int version = 2;
+        String time = System.currentTimeMillis() + "--v" + version;
+        takRepository.save(new Tak(time, time));
+        return takRepository.findAll();
     }
 
 }
