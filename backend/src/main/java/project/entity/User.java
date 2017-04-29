@@ -1,14 +1,20 @@
-package project.entities;
+package project.entity;
 
 
+import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.List;
 
+@Entity(name = "Users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger id;
     private String name;
-    private List<Note> ownedNotes;
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    private List<Note> createdNotes;
+    @ManyToMany(mappedBy = "editors", fetch = FetchType.LAZY)
     private List<Note> editableNotes;
 
     public BigInteger getId() {
@@ -27,12 +33,12 @@ public class User {
         this.name = name;
     }
 
-    public List<Note> getOwnedNotes() {
-        return ownedNotes;
+    public List<Note> getCreatedNotes() {
+        return createdNotes;
     }
 
-    public void setOwnedNotes(List<Note> ownedNotes) {
-        this.ownedNotes = ownedNotes;
+    public void setCreatedNotes(List<Note> createdNotes) {
+        this.createdNotes = createdNotes;
     }
 
     public List<Note> getEditableNotes() {
@@ -52,7 +58,7 @@ public class User {
 
         if (id != null ? !id.equals(user.id) : user.id != null) return false;
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
-        if (ownedNotes != null ? !ownedNotes.equals(user.ownedNotes) : user.ownedNotes != null) return false;
+        if (createdNotes != null ? !createdNotes.equals(user.createdNotes) : user.createdNotes != null) return false;
         return editableNotes != null ? editableNotes.equals(user.editableNotes) : user.editableNotes == null;
 
     }
@@ -61,7 +67,7 @@ public class User {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (ownedNotes != null ? ownedNotes.hashCode() : 0);
+        result = 31 * result + (createdNotes != null ? createdNotes.hashCode() : 0);
         result = 31 * result + (editableNotes != null ? editableNotes.hashCode() : 0);
         return result;
     }
@@ -71,8 +77,6 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", ownedNotes=" + ownedNotes +
-                ", editableNotes=" + editableNotes +
                 '}';
     }
 }

@@ -12,10 +12,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan("project")
+@ComponentScan("project.controller")
 @PropertySource("classpath:application.properties")
-@EntityScan("project")
-@EnableJpaRepositories("project")
 @EnableTransactionManagement
 public class Config {
 

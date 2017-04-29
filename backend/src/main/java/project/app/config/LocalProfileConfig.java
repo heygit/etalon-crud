@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Profile;
 
 @Configuration
 @Profile("local")
-@ComponentScan("project.services.stub")
+@ComponentScan("project.dao.stub")
 public class LocalProfileConfig {
 
 }

@@ -1,16 +1,21 @@
-package project.entities;
+package project.entity;
 
+import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.List;
 
+@Entity
 public class Note {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger id;
     private String name;
-    private double weight;
-    private List<String> tags;
+    private String details;
     private long created;
+    @ManyToOne(cascade = {CascadeType.ALL})
     private User author;
+    @ManyToMany(cascade = {CascadeType.ALL})
     private List<User> editors;
 
     public BigInteger getId() {
@@ -27,22 +32,6 @@ public class Note {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    public List<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<String> tags) {
-        this.tags = tags;
     }
 
     public long getCreated() {
@@ -69,6 +58,14 @@ public class Note {
         this.editors = editors;
     }
 
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -76,11 +73,10 @@ public class Note {
 
         Note note = (Note) o;
 
-        if (Double.compare(note.weight, weight) != 0) return false;
         if (created != note.created) return false;
         if (id != null ? !id.equals(note.id) : note.id != null) return false;
         if (name != null ? !name.equals(note.name) : note.name != null) return false;
-        if (tags != null ? !tags.equals(note.tags) : note.tags != null) return false;
+        if (details != null ? !details.equals(note.details) : note.details != null) return false;
         if (author != null ? !author.equals(note.author) : note.author != null) return false;
         return editors != null ? editors.equals(note.editors) : note.editors == null;
 
@@ -88,13 +84,9 @@ public class Note {
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = id != null ? id.hashCode() : 0;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        temp = Double.doubleToLongBits(weight);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (tags != null ? tags.hashCode() : 0);
+        result = 31 * result + (details != null ? details.hashCode() : 0);
         result = 31 * result + (int) (created ^ (created >>> 32));
         result = 31 * result + (author != null ? author.hashCode() : 0);
         result = 31 * result + (editors != null ? editors.hashCode() : 0);
@@ -106,8 +98,7 @@ public class Note {
         return "Note{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", weight=" + weight +
-                ", tags=" + tags +
+                ", details='" + details + '\'' +
                 ", created=" + created +
                 ", author=" + author +
                 ", editors=" + editors +
