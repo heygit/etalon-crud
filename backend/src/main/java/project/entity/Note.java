@@ -2,6 +2,7 @@ package project.entity;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,10 +14,10 @@ public class Note {
     private String name;
     private String details;
     private long created;
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private User author;
-    @ManyToMany(cascade = {CascadeType.ALL})
-    private List<User> editors;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<User> editors = new ArrayList<>();
 
     public BigInteger getId() {
         return id;

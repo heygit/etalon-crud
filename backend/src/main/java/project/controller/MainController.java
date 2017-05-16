@@ -44,9 +44,11 @@ public class MainController {
 
         final User author = getUser();
         note.setAuthor(author);
+        author.getCreatedNotes().add(note);
 
         final User editor = getUser();
         note.setEditors(Collections.singletonList(editor));
+        editor.getEditableNotes().add(note);
         return note;
     }
 

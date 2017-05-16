@@ -3,6 +3,7 @@ package project.entity;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "Users")
@@ -13,9 +14,9 @@ public class User {
     private BigInteger id;
     private String name;
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-    private List<Note> createdNotes;
+    private List<Note> createdNotes = new ArrayList<>();
     @ManyToMany(mappedBy = "editors", fetch = FetchType.LAZY)
-    private List<Note> editableNotes;
+    private List<Note> editableNotes = new ArrayList<>();
 
     public BigInteger getId() {
         return id;
