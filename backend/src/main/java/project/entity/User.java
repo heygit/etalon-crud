@@ -13,9 +13,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger id;
     private String name;
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Note> createdNotes = new ArrayList<>();
-    @ManyToMany(mappedBy = "editors", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "editors", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Note> editableNotes = new ArrayList<>();
 
     public BigInteger getId() {

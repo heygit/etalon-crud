@@ -6,14 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import project.dao.NoteDao;
-import project.dao.UserDao;
-import project.entity.Note;
-import project.entity.User;
-
-import java.util.Collections;
+import project.service.NoteService;
 
 
 @Controller
@@ -22,41 +16,33 @@ public class MainController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
 
-    @Autowired
-    private NoteDao noteDao;
-    @Autowired
-    private UserDao userDao;
+    private final NoteService noteService;
 
-    @RequestMapping(value = "echo", method = RequestMethod.GET)
+    @Autowired
+    public MainController(NoteService noteService) {
+        this.noteService = noteService;
+    }
+
+    @RequestMapping(value = "lock", method = RequestMethod.GET)
     @ResponseBody
-    public Object echo(@RequestParam(value = "message") String message) {
+    public Object lock() {
         LOGGER.debug("Echo performed");
-        noteDao.save(getNote());
+        noteService.updateNote();
         return "done";
     }
 
-    private Note getNote() {
-        String time = System.currentTimeMillis()+"";
-        Note note = new Note();
-        note.setName(time);
-        note.setDetails(time);
-        note.setCreated(1);
-
-        final User author = getUser();
-        note.setAuthor(author);
-        author.getCreatedNotes().add(note);
-
-        final User editor = getUser();
-        note.setEditors(Collections.singletonList(editor));
-        editor.getEditableNotes().add(note);
-        return note;
+    @RequestMapping(value = "echo", method = RequestMethod.GET)
+    @ResponseBody
+    public Object echo() {
+        LOGGER.debug("Echo performed");
+        noteService.createNotes(false);
+        try {
+            noteService.createNotes(true);
+        } catch (Throwable ex) {
+        }
+        noteService.createNotes(false);
+        return "done";
     }
 
-    private User getUser() {
-        String time = System.currentTimeMillis()+"";
-        User user = new User();
-        user.setName(time);
-        return user;
-    }
 
 }

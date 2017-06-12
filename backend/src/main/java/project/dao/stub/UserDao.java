@@ -1,5 +1,6 @@
-package project.dao;
+package project.dao.stub;
 
+import project.dao.BaseDao;
 import project.entity.User;
 
 import java.math.BigInteger;

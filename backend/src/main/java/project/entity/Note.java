@@ -16,7 +16,7 @@ public class Note {
     private long created;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private User author;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<User> editors = new ArrayList<>();
 
     public BigInteger getId() {

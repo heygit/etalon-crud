@@ -2,7 +2,6 @@ package project.dao.stub;
 
 
 import org.springframework.stereotype.Service;
-import project.dao.NoteDao;
 import project.dao.stub.util.IdGenerator;
 import project.entity.Note;
 

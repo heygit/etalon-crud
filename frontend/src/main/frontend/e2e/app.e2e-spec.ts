@@ -1,14 +1,14 @@
-import { Ng2bootPage } from './app.po';
+import { PROJECTNAMEPage } from './app.po';
 
-describe('ng2boot App', () => {
-  let page: Ng2bootPage;
+describe('project-name App', () => {
+  let page: PROJECTNAMEPage;
 
   beforeEach(() => {
-    page = new Ng2bootPage();
+    page = new PROJECTNAMEPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual('Welcome to app!!');
   });
 });
