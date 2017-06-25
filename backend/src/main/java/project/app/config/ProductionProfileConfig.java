@@ -11,7 +11,7 @@ import project.dao.impl.CustomRepositoryImpl;
 @Profile("production")
 @EntityScan("project")
 @EnableJpaRepositories(value = "project", repositoryBaseClass = CustomRepositoryImpl.class)
-@ComponentScan({"project.dao.impl", "project.service.impl"})
+@ComponentScan({"project.dao.impl"})
 public class ProductionProfileConfig {
 
 }

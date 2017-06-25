@@ -1,22 +1,38 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {DashboardComponent} from "./dashboard/dashboard.component";
-import {HeroDetailComponent} from "./hero_detail/hero-detail.component";
-import {HeroesComponent} from "./heroes/heroes.component";
+import {NgModule} from "@angular/core";
+import {RouterModule, Routes} from "@angular/router";
+import {CardNumberInputComponent} from "./card-number-input/card-number-input.component";
+import {PinInputComponent} from "./pin-input/pin-input.component";
+import {OperationsComponent} from "./operations/operations.component";
+import {BalanceComponent} from "./balance/balance.component";
+import {GettingCashComponent} from "./getting-cash/getting-cash.component";
+import {GettingCashResultComponent} from "./getting-cash-result/getting-cash-result.component";
+import {ErrorComponent} from "./error/error.component";
 
 const routes: Routes = [
   { path: '',
-    redirectTo: '/dashboard',
+    redirectTo: '/login',
     pathMatch: 'full'
   },
-  { path: 'dashboard',
-    component: DashboardComponent
+  { path: 'login',
+    component: CardNumberInputComponent
   },
-  { path: 'detail/:id',
-    component: HeroDetailComponent
+  { path: 'pin',
+    component: PinInputComponent
   },
-  { path: 'heroes',
-    component: HeroesComponent
+  { path: 'operations',
+    component: OperationsComponent
+  },
+  { path: 'balance',
+    component: BalanceComponent
+  },
+  { path: 'getting-cash',
+    component: GettingCashComponent
+  },
+  { path: 'getting-cash-result',
+    component: GettingCashResultComponent
+  },
+  { path: 'error/:code/:redirect',
+    component: ErrorComponent
   }
 ];
 @NgModule({

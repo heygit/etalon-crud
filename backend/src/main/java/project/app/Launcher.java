@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
-import project.app.config.Config;
+import project.app.config.MainConfig;
 
 import java.io.IOException;
 
@@ -14,7 +14,7 @@ import java.io.IOException;
 public class Launcher extends SpringBootServletInitializer {
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        ApplicationContext context = SpringApplication.run(Config.class, args);
+        ApplicationContext context = SpringApplication.run(MainConfig.class, args);
     }
 
     @Override
