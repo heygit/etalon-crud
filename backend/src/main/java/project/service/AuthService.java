@@ -1,5 +1,8 @@
 package project.service;
 
+import project.service.model.CardStatus;
+import project.service.model.CheckPinStatus;
+
 public interface AuthService {
 
     /**
@@ -16,5 +19,5 @@ public interface AuthService {
      * @param cardNumber
      * @return
      */
-    boolean checkPin(String cardNumber, String pin);
+    CheckPinStatus checkPin(String cardNumber, String pin);
 }

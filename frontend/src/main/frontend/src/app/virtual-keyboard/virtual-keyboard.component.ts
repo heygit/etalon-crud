@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
 })
 export class VirtualKeyboardComponent implements OnInit {
 
-  @Output()
+  @Output('buttonPress')
   private clickEmitter = new EventEmitter<Number>();
 
   constructor(private router: Router, private heroService: HeroService) {}

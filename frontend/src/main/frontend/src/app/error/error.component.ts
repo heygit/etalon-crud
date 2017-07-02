@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 import {Hero} from "../model/hero";
 import {HeroService} from "../service/hero.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 
 
 @Component({
@@ -11,16 +11,23 @@ import {Router} from "@angular/router";
 })
 export class ErrorComponent implements OnInit {
 
-  heroes: Hero[] = [];
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
-  constructor(private router: Router, private heroService: HeroService) {}
+  message: String = '';
 
   ngOnInit(): void {
-    this.heroService.getHeroes().then(heroes => this.heroes = heroes.slice(1, 5));
+    this.route.params
+      .subscribe((params: Params) => {
+        if (params['code'] != null) {
+          this.message = params['code'];
+        } else {
+          this.message = 'Something went wrong';
+        }
+      })
   }
 
-  gotoDetail(hero: Hero): void {
-    this.router.navigate(['/detail', hero.id]);
+  return() {
+    this.router.navigate(['/']);
   }
 
 }

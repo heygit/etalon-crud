@@ -16,6 +16,7 @@ public class Operation {
     @ManyToOne
     private Card card;
     private long timeStamp;
+    @Enumerated(EnumType.STRING)
     private OperationType operationType;
     private BigDecimal amount;
 

@@ -12,11 +12,6 @@
 
     <artifactId>backend</artifactId>
 
-    <!--<parent>-->
-        <!--<groupId>org.springframework.boot</groupId>-->
-        <!--<artifactId>spring-boot-starter-parent</artifactId>-->
-        <!--<version>1.4.0.RELEASE</version>-->
-    <!--</parent>-->
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
         <dependency>
@@ -66,21 +61,27 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.25</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.lambdaworks/scrypt -->
+        <dependency>
+            <groupId>com.lambdaworks</groupId>
+            <artifactId>scrypt</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+
 
     </dependencies>
 
     <profiles>
         <profile>
-            <id>local</id>
-            <properties>
-                <activated.profile>local</activated.profile>
-            </properties>
-        </profile>
-
-        <profile>
             <id>production</id>
             <properties>
                 <activated.profile>production</activated.profile>
+            </properties>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <activated.profile>dev</activated.profile>
             </properties>
         </profile>
     </profiles>

@@ -1,20 +1,19 @@
 import {Component, OnInit} from '@angular/core';
 
 import {Hero} from "../model/hero";
-import {HeroService} from "../service/hero.service";
 import {Router} from "@angular/router";
+import {AuthService} from "../service/auth.service";
 
 
 @Component({
   selector: 'card-number-input',
-  templateUrl: './card-number-input.component.html',
-  styleUrls: ['./card-number-input.component.css']
+  templateUrl: './card-number-input.component.html'
 })
-export class CcardNumberInputComponent implements OnInit {
+export class CardNumberInputComponent implements OnInit {
 
-  cardNumber: String = "";
+  cardNumber: string = "";
 
-  constructor(private router: Router, private heroService: HeroService) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
   }
@@ -32,7 +31,15 @@ export class CcardNumberInputComponent implements OnInit {
   }
 
   submit(): void {
-    //httpservice send request!!!
+    this.authService.checkCard(this.cardNumber)
+      .then((status) => {
+        if (status == 'ok') {
+          this.router.navigate(['/input-pin']);
+        }
+      })
+      .catch(() => {
+        this.router.navigate(['/error']);
+      });
   }
 
 }

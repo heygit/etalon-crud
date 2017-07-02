@@ -9,7 +9,8 @@ public class Card {
 
     @Id
     private String number;
-    private String encryptedPin;
+    private String hashedPin;
+    private String salt;
     private boolean locked;
     private BigDecimal balance;
     private int failTimes;
@@ -22,12 +23,20 @@ public class Card {
         this.number = number;
     }
 
-    public String getEncryptedPin() {
-        return encryptedPin;
+    public String getHashedPin() {
+        return hashedPin;
     }
 
-    public void setEncryptedPin(String encryptedPin) {
-        this.encryptedPin = encryptedPin;
+    public void setHashedPin(String hashedPin) {
+        this.hashedPin = hashedPin;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     public boolean isLocked() {

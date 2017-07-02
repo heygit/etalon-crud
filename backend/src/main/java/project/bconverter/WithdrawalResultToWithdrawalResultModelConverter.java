@@ -1,0 +1,46 @@
+package project.bconverter;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Service;
+import project.service.model.WithdrawalResult;
+import project.service.CustomConversionService;
+import project.viewmodel.Currency;
+import project.viewmodel.WithdrawalResultModel;
+
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
+import static project.constants.DateFormats.COMMON_FORMAT;
+
+@Service
+public class WithdrawalResultToWithdrawalResultModelConverter implements
+        Converter<WithdrawalResult, WithdrawalResultModel> {
+
+    private final CustomConversionService conversionService;
+
+    @Autowired
+    public WithdrawalResultToWithdrawalResultModelConverter(CustomConversionService conversionService) {
+        this.conversionService = conversionService;
+    }
+
+    @Override
+    public WithdrawalResultModel convert(WithdrawalResult source) {
+        WithdrawalResultModel target = new WithdrawalResultModel();
+        target.setCardNumber(source.getCardNumber());
+        target.setAmount(conversionService.convert(source.getAmount(), Currency.class));
+        target.setBalance(conversionService.convert(source.getBalance(), Currency.class));
+
+        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(source.getDate()),
+                ZoneId.systemDefault());
+        DateTimeFormatter format = DateTimeFormatter.ofPattern(COMMON_FORMAT);
+        String dateString = zonedDateTime.format(format);
+
+        target.setDate(dateString);
+
+        return target;
+    }
+
+}

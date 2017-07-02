@@ -10,13 +10,13 @@ import {ErrorComponent} from "./error/error.component";
 
 const routes: Routes = [
   { path: '',
-    redirectTo: '/login',
+    redirectTo: '/input-card',
     pathMatch: 'full'
   },
-  { path: 'login',
+  { path: 'input-card',
     component: CardNumberInputComponent
   },
-  { path: 'pin',
+  { path: 'input-pin',
     component: PinInputComponent
   },
   { path: 'operations',
@@ -32,6 +32,9 @@ const routes: Routes = [
     component: GettingCashResultComponent
   },
   { path: 'error/:code/:redirect',
+    component: ErrorComponent
+  },
+  { path: 'error',
     component: ErrorComponent
   }
 ];

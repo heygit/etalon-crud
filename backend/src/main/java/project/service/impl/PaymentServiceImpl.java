@@ -10,6 +10,8 @@ import project.entity.Operation;
 import project.exception.CardNotFoundException;
 import project.exception.MoneyOperationException;
 import project.service.PaymentService;
+import project.service.model.Balance;
+import project.service.model.WithdrawalResult;
 import project.utils.OperationType;
 
 import java.math.BigDecimal;
@@ -28,7 +30,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     @Transactional
-    public BigDecimal getBalance(String cardNumber) throws CardNotFoundException {
+    public Balance getBalance(String cardNumber) throws CardNotFoundException {
         Card card = cardDao.findOne(cardNumber);
         final long timeStamp = System.currentTimeMillis();
         checkIfNull(card, cardNumber);
@@ -39,26 +41,28 @@ public class PaymentServiceImpl implements PaymentService {
         operation.setOperationType(OperationType.SHOW_BALANCE);
         operationDao.save(operation);
 
-        return card.getBalance();
-    }
+        BigDecimal amount = card.getBalance();
+        Balance balance = new Balance(cardNumber, timeStamp, amount);
 
-    //TODO: RETURN TIME TOO!!!
+        return balance;
+    }
 
     @Override
     @Transactional
-    public BigDecimal getCash(String cardNumber, BigDecimal amount) throws CardNotFoundException,
+    public WithdrawalResult getCash(String cardNumber, BigDecimal amount) throws CardNotFoundException,
             MoneyOperationException {
         if (amount == null) {
             throw new IllegalArgumentException();
         }
         Card card = cardDao.findOneForUpdate(cardNumber);
         final long timeStamp = System.currentTimeMillis();
-        final BigDecimal balance = card.getBalance();
         checkIfNull(card, cardNumber);
+        BigDecimal balance = card.getBalance();
         if (amount.compareTo(balance) > 0) {
             throw new MoneyOperationException();
         }
         balance.subtract(amount);
+        cardDao.save(card);
 
         Operation operation = new Operation();
         operation.setCard(card);
@@ -66,11 +70,13 @@ public class PaymentServiceImpl implements PaymentService {
         operation.setOperationType(OperationType.GET_CASH);
         operation.setAmount(amount);
         operationDao.save(operation);
-        return balance;
+
+        WithdrawalResult result = new WithdrawalResult(cardNumber, timeStamp, amount, balance);
+        return result;
     }
 
     private void checkIfNull(Card card, String cardNumber) {
-        if (card == null) {//TODO: CHECK IF IT RETURNS NULL!!!
+        if (card == null) {
             throw new CardNotFoundException("Could not find card " + cardNumber);
         }
     }

@@ -1,14 +1,14 @@
-package project.service;
+package project.service.model;
 
-public enum CardStatus {
+public enum CheckPinStatus {
 
     OK("ok"),
-    LOCKED("locked"),
-    NOT_FOUND("notFound");
+    WRONG_PIN("wrongPin"),
+    CARD_LOCKED("cardLocked");
 
     private final String value;
 
-    CardStatus(String value) {
+    CheckPinStatus(String value) {
         this.value = value;
     }
 

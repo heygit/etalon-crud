@@ -1,4 +1,4 @@
-package project.utils;
+package project.service;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -10,6 +10,10 @@ public class AuthSessionBean {
 
     private String cardNumber;
     private boolean isAuthorized;
+
+    public String getAuthorizedCard() {
+        return isAuthorized? cardNumber: null;
+    }
 
     public String getCardNumber() {
         return cardNumber;
