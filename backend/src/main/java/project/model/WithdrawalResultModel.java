@@ -1,18 +1,20 @@
-package project.viewmodel;
+package project.model;
 
-public class BalanceModel {
+public class WithdrawalResultModel {
 
     private String cardNumber;
     private String date;
     private Currency amount;
+    private Currency balance;
 
-    public BalanceModel(String cardNumber, String date, Currency amount) {
+    public WithdrawalResultModel(String cardNumber, String date, Currency amount, Currency balance) {
         this.cardNumber = cardNumber;
         this.date = date;
         this.amount = amount;
+        this.balance = balance;
     }
 
-    public BalanceModel() {
+    public WithdrawalResultModel() {
     }
 
     public String getCardNumber() {
@@ -37,5 +39,13 @@ public class BalanceModel {
 
     public void setAmount(Currency amount) {
         this.amount = amount;
+    }
+
+    public Currency getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Currency balance) {
+        this.balance = balance;
     }
 }

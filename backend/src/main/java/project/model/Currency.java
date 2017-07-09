@@ -1,4 +1,4 @@
-package project.viewmodel;
+package project.model;
 
 public class Currency {
 

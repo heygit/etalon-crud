@@ -9,10 +9,10 @@ import project.entity.Card;
 import project.entity.Operation;
 import project.exception.CardNotFoundException;
 import project.exception.MoneyOperationException;
+import project.model.OperationType;
 import project.service.PaymentService;
 import project.service.model.Balance;
 import project.service.model.WithdrawalResult;
-import project.utils.OperationType;
 
 import java.math.BigDecimal;
 

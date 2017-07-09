@@ -1,4 +1,4 @@
-package project.app;
+package project.utils;
 
 import com.lambdaworks.crypto.SCryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import project.entity.Card;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
-import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Random;
 
@@ -30,7 +29,7 @@ public class Helper {
     @Autowired
     private CardDao cardDao;
 
-    @PostConstruct
+//    @PostConstruct
     private void init() {
         Card card = new Card();
         card.setBalance(new BigDecimal("1000000"));

@@ -1,12 +1,12 @@
-package project.bconverter;
+package project.converter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 import project.service.model.WithdrawalResult;
 import project.service.CustomConversionService;
-import project.viewmodel.Currency;
-import project.viewmodel.WithdrawalResultModel;
+import project.model.Currency;
+import project.model.WithdrawalResultModel;
 
 import java.time.Instant;
 import java.time.ZoneId;

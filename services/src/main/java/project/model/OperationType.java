@@ -1,4 +1,4 @@
-package project.utils;
+package project.model;
 
 
 public enum OperationType {

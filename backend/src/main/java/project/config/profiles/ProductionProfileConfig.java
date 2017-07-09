@@ -1,23 +1,24 @@
-package project.app.config;
+package project.config.profiles;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import project.filter.SecurityFilter;
-import project.filter.SessionIdHandlerLog4jFilter;
 
 import static project.constants.ParamValues.ALL_URLS_PATTERN;
 
 @Configuration
-public class FilterConfig {
+@Profile("production")
+public class ProductionProfileConfig {
 
     @Bean
-    public FilterRegistrationBean registerSessionIdHandlerLog4jFilter() {
+    public FilterRegistrationBean registerSecurityFilter() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(new SessionIdHandlerLog4jFilter());
+        registration.setFilter(new SecurityFilter());
         registration.addUrlPatterns(ALL_URLS_PATTERN);
-        registration.setName(SessionIdHandlerLog4jFilter.class.getSimpleName());
-        registration.setOrder(2);
+        registration.setName(SecurityFilter.class.getSimpleName());
+        registration.setOrder(1);
         return registration;
     }
 

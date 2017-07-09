@@ -1,22 +1,14 @@
-package project.entity;
+package project.model;
 
 
-import project.utils.OperationType;
-
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-@Entity
 public class Operation {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private BigInteger id;
-    @ManyToOne
     private Card card;
     private long timeStamp;
-    @Enumerated(EnumType.STRING)
     private OperationType operationType;
     private BigDecimal amount;
 

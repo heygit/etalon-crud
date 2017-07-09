@@ -1,12 +1,12 @@
-package project.bconverter;
+package project.converter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 import project.service.model.Balance;
 import project.service.CustomConversionService;
-import project.viewmodel.BalanceModel;
-import project.viewmodel.Currency;
+import project.model.BalanceModel;
+import project.model.Currency;
 
 import java.time.Instant;
 import java.time.ZoneId;

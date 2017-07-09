@@ -1,8 +1,8 @@
-package project.bconverter;
+package project.converter;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
-import project.viewmodel.Currency;
+import project.model.Currency;
 
 import java.math.BigDecimal;
 

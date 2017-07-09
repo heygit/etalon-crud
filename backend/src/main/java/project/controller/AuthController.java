@@ -8,13 +8,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import project.service.AuthService;
+import project.service.AuthSessionBean;
 import project.service.model.CardStatus;
 import project.service.model.CheckPinStatus;
-import project.service.AuthSessionBean;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import java.util.Collections;
 import java.util.Map;
 

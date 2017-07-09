@@ -1,4 +1,4 @@
-package project.domainmodel;
+package project.model;
 
 import java.math.BigDecimal;
 

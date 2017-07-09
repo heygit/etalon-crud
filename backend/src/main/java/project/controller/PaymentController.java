@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import project.exception.CardNotFoundException;
 import project.exception.MoneyOperationException;
+import project.model.BalanceModel;
+import project.model.WithdrawalResultModel;
+import project.service.AuthSessionBean;
+import project.service.CustomConversionService;
 import project.service.PaymentService;
 import project.service.model.Balance;
 import project.service.model.WithdrawalResult;
-import project.service.AuthSessionBean;
-import project.service.CustomConversionService;
-import project.viewmodel.BalanceModel;
-import project.viewmodel.WithdrawalResultModel;
 
 import java.math.BigDecimal;
 
