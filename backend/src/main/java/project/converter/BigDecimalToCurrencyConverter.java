@@ -1,12 +1,12 @@
 package project.converter;
 
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import project.model.Currency;
 
 import java.math.BigDecimal;
 
-@Service
+@Component
 public class BigDecimalToCurrencyConverter implements Converter<BigDecimal, Currency> {
 
     @Override

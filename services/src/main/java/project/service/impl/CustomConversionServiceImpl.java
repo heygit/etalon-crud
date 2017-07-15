@@ -11,14 +11,10 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class ConversionServiceImpl implements CustomConversionService {
-
-    private final ConversionService conversionService;
+public class CustomConversionServiceImpl implements CustomConversionService {
 
     @Autowired
-    public ConversionServiceImpl(ConversionService conversionService) {
-        this.conversionService = conversionService;
-    }
+    private ConversionService conversionService;
 
     @Override
     public <T> T convert(Object source, Class<T> targetClass) {

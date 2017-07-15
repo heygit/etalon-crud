@@ -17,7 +17,7 @@ public class DevProfileConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("*")
+                        .allowedOrigins("http://localhost:4200")
                         .allowCredentials(true)
                         .allowedMethods("GET", "PUT", "POST", "OPTIONS")
                         .allowedHeaders("*");

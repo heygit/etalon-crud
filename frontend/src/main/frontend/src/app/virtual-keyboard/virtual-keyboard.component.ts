@@ -1,6 +1,4 @@
 import {Component, EventEmitter, OnInit, Output} from "@angular/core";
-import {HeroService} from "../service/hero.service";
-import {Router} from "@angular/router";
 
 
 @Component({
@@ -12,7 +10,7 @@ export class VirtualKeyboardComponent implements OnInit {
   @Output('buttonPress')
   private clickEmitter = new EventEmitter<Number>();
 
-  constructor(private router: Router, private heroService: HeroService) {}
+  constructor() {}
 
   ngOnInit(): void {
   }

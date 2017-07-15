@@ -6,11 +6,6 @@ import {HttpModule} from "@angular/http";
 import {AppRoutingModule} from "./app-routing.module";
 
 import {AppComponent} from "./app/app.component";
-import {HeroesComponent} from "./heroes/heroes.component";
-import {HeroDetailComponent} from "./hero_detail/hero-detail.component";
-import {HeroService} from "./service/hero.service";
-import {DashboardComponent} from "./dashboard/dashboard.component";
-import {HeroSearchComponent} from "./hero-search/hero-search.component";
 import {CardNumberInputComponent} from "./card-number-input/card-number-input.component";
 import {VirtualKeyboardComponent} from "./virtual-keyboard/virtual-keyboard.component";
 import {PinInputComponent} from "./pin-input/pin-input.component";
@@ -21,6 +16,7 @@ import {BalanceComponent} from "./balance/balance.component";
 import {OperationsComponent} from "./operations/operations.component";
 import {AuthService} from "./service/auth.service";
 import {HttpService} from "./service/http.service";
+import {PaymentService} from "./service/payment.service";
 
 
 @NgModule({
@@ -39,15 +35,11 @@ import {HttpService} from "./service/http.service";
     GettingCashResultComponent,
     OperationsComponent,
     PinInputComponent,
-    VirtualKeyboardComponent,
-    DashboardComponent,
-    HeroDetailComponent,
-    HeroesComponent,
-    HeroSearchComponent
+    VirtualKeyboardComponent
   ],
   providers: [
-    HeroService,
     AuthService,
+    PaymentService,
     HttpService
   ],
   bootstrap: [AppComponent]

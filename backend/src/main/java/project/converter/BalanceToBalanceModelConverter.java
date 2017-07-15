@@ -3,10 +3,10 @@ package project.converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
-import project.service.model.Balance;
-import project.service.CustomConversionService;
 import project.model.BalanceModel;
 import project.model.Currency;
+import project.service.CustomConversionService;
+import project.service.model.Balance;
 
 import java.time.Instant;
 import java.time.ZoneId;
@@ -18,12 +18,8 @@ import static project.constants.DateFormats.COMMON_FORMAT;
 @Service
 public class BalanceToBalanceModelConverter implements Converter<Balance, BalanceModel> {
 
-    private final CustomConversionService conversionService;
-
     @Autowired
-    public BalanceToBalanceModelConverter(CustomConversionService conversionService) {
-        this.conversionService = conversionService;
-    }
+    private CustomConversionService conversionService;
 
     @Override
     public BalanceModel convert(Balance source) {

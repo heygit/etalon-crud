@@ -2,7 +2,6 @@ package project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,30 +34,35 @@ public class AuthController {
     @RequestMapping(value = "checkCard", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> checkCard(@RequestParam(CARD_NUMBER_KEY) String cardNumber, HttpServletRequest request) {
-        CardStatus cardStatus = authService.checkCard(cardNumber);
+        CardStatus cardStatus = CardStatus.OK;//authService.checkCard(cardNumber);TODO
         if (cardStatus == CardStatus.OK) {
             invalidateSession(request);
             request.getSession(true);
             authSessionBean.setCardNumber(cardNumber);
         }
         authSessionBean.setAuthorized(false);
+
         return Collections.singletonMap(STATUS_KEY, cardStatus.toString());
     }
 
     @RequestMapping(value = "checkPin", method = RequestMethod.POST)
-    public void checkPin(@RequestParam(PIN_KEY) String pin, Model model, HttpServletRequest request) {
+    @ResponseBody
+    public Map<String, Object> checkPin(@RequestParam(PIN_KEY) String pin) {
         final String cardNumber = authSessionBean.getCardNumber();
-        CheckPinStatus checkPinStatus = authService.checkPin(cardNumber, pin);
+        CheckPinStatus checkPinStatus = CheckPinStatus.OK;//authService.checkPin(cardNumber, pin);TODO
         if (checkPinStatus == CheckPinStatus.OK) {
             authSessionBean.setAuthorized(true);
         }
 
-        model.addAttribute(STATUS_KEY, checkPinStatus.toString());
+        return Collections.singletonMap(STATUS_KEY, checkPinStatus.toString());
     }
 
     @RequestMapping(value = "logout", method = RequestMethod.POST)
-    public void logout(HttpServletRequest request) {
+    @ResponseBody
+    public Map<String, Object> logout(HttpServletRequest request) {
         invalidateSession(request);
+
+        return Collections.emptyMap();
     }
 
     private void invalidateSession(HttpServletRequest request) {

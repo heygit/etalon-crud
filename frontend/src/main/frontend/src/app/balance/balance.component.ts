@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-
-import {Hero} from "../model/hero";
-import {HeroService} from "../service/hero.service";
+import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
+import {PaymentService} from "../service/payment.service";
+import {BalanceModel} from "../model/balance-model";
 
 
 @Component({
@@ -11,16 +10,19 @@ import {Router} from "@angular/router";
 })
 export class BalanceComponent implements OnInit {
 
-  heroes: Hero[] = [];
+  balance: BalanceModel;
 
-  constructor(private router: Router, private heroService: HeroService) {}
+  constructor(private router: Router, private paymentService: PaymentService) {}
 
   ngOnInit(): void {
-    this.heroService.getHeroes().then(heroes => this.heroes = heroes.slice(1, 5));
+    this.paymentService.getBalance()
+      .then((balance) => {
+        this.balance = balance;
+      })
+      .catch(() => {
+        this.router.navigate(['/error']);
+      });
   }
 
-  gotoDetail(hero: Hero): void {
-    this.router.navigate(['/detail', hero.id]);
-  }
 
 }

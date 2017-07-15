@@ -1,8 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-
-import {Hero} from "../model/hero";
-import {HeroService} from "../service/hero.service";
+import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
+import {AuthService} from "../service/auth.service";
 
 
 @Component({
@@ -11,16 +9,26 @@ import {Router} from "@angular/router";
 })
 export class OperationsComponent implements OnInit {
 
-  heroes: Hero[] = [];
-
-  constructor(private router: Router, private heroService: HeroService) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.heroService.getHeroes().then(heroes => this.heroes = heroes.slice(1, 5));
   }
 
-  gotoDetail(hero: Hero): void {
-    this.router.navigate(['/detail', hero.id]);
+  showBalance(): void {
+    this.router.navigate(['balance']);
+  }
+
+  getCash(): void {
+    this.authService.logout();
+    this.authService.deleteAllCookies();
+    this.router.navigate(['']);
+  }
+
+
+  quit(): void {
+    this.authService.logout();
+    this.authService.deleteAllCookies();
+    this.router.navigate(['']);
   }
 
 }

@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan({"project.controller", "project.service"})
+@ComponentScan({"project.controller", "project.service", "project.converter"})
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
 public class MainConfig {

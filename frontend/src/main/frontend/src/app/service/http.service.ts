@@ -13,11 +13,12 @@ export class HttpService {
     const headers = this.getHeaders();
     return this.http.post(this.host + url, null, {
       headers: headers,
-      params: params
+      params: params,
+      withCredentials: true
     });
   }
 
-  getHeaders(): Headers {
+  private getHeaders(): Headers {
     const csrfToken = this.getCsrfToken();
     return new Headers({
       'Accept': 'application/json',
@@ -25,13 +26,13 @@ export class HttpService {
     });
 }
 
-  getCsrfToken(): string {
+  private getCsrfToken(): string {
     return this.getCookie('JSESSIONID');
   }
 
   // Given a cookie key `name`, returns the value of
   // the cookie or `null`, if the key is not found.
-  getCookie(name: string): string {
+  private getCookie(name: string): string {
     const nameLenPlus = (name.length + 1);
     return document.cookie
         .split(';')
@@ -42,16 +43,6 @@ export class HttpService {
         .map(cookie => {
           return decodeURIComponent(cookie.substring(nameLenPlus));
         })[0] || null;
-  }
-
-  deleteAllCookies() {
-    document.cookie
-      .split(';')
-      .forEach(cookie => {
-        var eqPos = cookie.indexOf("=");
-        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-      });
   }
 
 }

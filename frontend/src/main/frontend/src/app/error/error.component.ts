@@ -1,7 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-
-import {Hero} from "../model/hero";
-import {HeroService} from "../service/hero.service";
+import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 
 
@@ -13,21 +10,49 @@ export class ErrorComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
-  message: String = '';
+  message: string = '';
+  url: string = '';
 
   ngOnInit(): void {
     this.route.params
       .subscribe((params: Params) => {
-        if (params['code'] != null) {
-          this.message = params['code'];
-        } else {
-          this.message = 'Something went wrong';
-        }
+        this.message = this.getMessage(params['code']);
+        this.url = this.getRedirectUrl(params['redirect']);
       })
   }
 
+  getMessage(code): string {
+    if (code == null) {
+      return 'Something went wrong';
+    } else if (code == 'cardLocked') {
+      return 'Card locked';
+    } else if (code == 'cartNotFound') {
+      return 'Card not found';
+    } else if (code == 'wrongPin') {
+      return 'Wrong Pin';
+    }
+
+    return 'Something went wrong';
+  }
+
+  getRedirectUrl(redirect): string {
+    if (redirect == null) {
+      return '';
+    }
+
+    return redirect;
+  }
+
   return() {
-    this.router.navigate(['/']);
+    this.navigate(this.url);
+  }
+
+  toMain() {
+    this.navigate('');
+  }
+
+  navigate(url) {
+    this.router.navigate([url]);
   }
 
 }
