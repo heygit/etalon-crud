@@ -7,6 +7,7 @@ import project.model.Currency;
 import project.model.WithdrawalResultModel;
 import project.service.CustomConversionService;
 import project.service.model.WithdrawalResult;
+import project.utils.Formatter;
 
 import java.time.Instant;
 import java.time.ZoneId;
@@ -25,7 +26,7 @@ public class WithdrawalResultToWithdrawalResultModelConverter implements
     @Override
     public WithdrawalResultModel convert(WithdrawalResult source) {
         WithdrawalResultModel target = new WithdrawalResultModel();
-        target.setCardNumber(source.getCardNumber());
+        target.setCardNumber(Formatter.CARD_NUMBER.format(source.getCardNumber()));
         target.setAmount(conversionService.convert(source.getAmount(), Currency.class));
         target.setBalance(conversionService.convert(source.getBalance(), Currency.class));
 

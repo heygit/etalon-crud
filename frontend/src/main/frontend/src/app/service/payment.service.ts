@@ -4,6 +4,7 @@ import {URLSearchParams} from "@angular/http";
 
 import 'rxjs/add/operator/toPromise';
 import {BalanceModel} from "../model/balance-model";
+import {WithdrawalResultModel} from "../model/withdrawal-result-model";
 
 @Injectable()
 export class PaymentService {
@@ -20,13 +21,30 @@ export class PaymentService {
       .catch(this.handleError);
   }
 
-  getCash(pin: string): Promise<string> {
+  getCash(amount: string): Promise<WithdrawalResultModel> {
     let params = new URLSearchParams();
-    params.append('pin', pin);
+    params.append('amount', amount);
     return this.httpService.post('api/v1/paymentManagement/getCash', params)
       .toPromise()
       .then(response => {
-        return response.json().status as string
+        let body = response.json();
+        if (body.withdrawalResult != null) {
+          return body.withdrawalResult as WithdrawalResultModel;
+        }
+        throw new Error(body.error);
+      })
+      .catch(this.handleError);
+  }
+
+  getWithdrawalResult(): Promise<WithdrawalResultModel> {
+    let params = new URLSearchParams();
+    return this.httpService.post('api/v1/paymentManagement/getWithdrawalResult', params)
+      .toPromise()
+      .then(response => {
+        if (response.json().withdrawalResult == null) {
+          throw new Error();
+        }
+        return response.json().withdrawalResult as WithdrawalResultModel;
       })
       .catch(this.handleError);
   }

@@ -33,7 +33,7 @@ export class AuthService {
 
   logout(): Promise<boolean> {
     let params = new URLSearchParams();
-    return this.httpService.post('api/v1/authManagement/дщ', params)
+    return this.httpService.post('api/v1/authManagement/logout', params)
       .toPromise()
       .then(response => {
         return response.status == 200;

@@ -7,6 +7,7 @@ import project.model.BalanceModel;
 import project.model.Currency;
 import project.service.CustomConversionService;
 import project.service.model.Balance;
+import project.utils.Formatter;
 
 import java.time.Instant;
 import java.time.ZoneId;
@@ -24,7 +25,7 @@ public class BalanceToBalanceModelConverter implements Converter<Balance, Balanc
     @Override
     public BalanceModel convert(Balance source) {
         BalanceModel target = new BalanceModel();
-        target.setCardNumber(source.getCardNumber());
+        target.setCardNumber(Formatter.CARD_NUMBER.format(source.getCardNumber()));
         target.setAmount(conversionService.convert(source.getAmount(), Currency.class));
 
         ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(source.getDate()),

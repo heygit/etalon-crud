@@ -18,7 +18,7 @@ export class ErrorComponent implements OnInit {
       .subscribe((params: Params) => {
         this.message = this.getMessage(params['code']);
         this.url = this.getRedirectUrl(params['redirect']);
-      })
+      });
   }
 
   getMessage(code): string {

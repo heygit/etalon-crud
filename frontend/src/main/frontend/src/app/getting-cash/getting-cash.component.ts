@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 import {Router} from "@angular/router";
+import {PaymentService} from "../service/payment.service";
 
 
 @Component({
@@ -9,9 +10,29 @@ import {Router} from "@angular/router";
 })
 export class GettingCashComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  amount: string = "";
+
+  constructor(private router: Router, private paymentService: PaymentService) {}
 
   ngOnInit(): void {
+  }
+
+  onClick(number: Number): void {
+    this.amount+= String(number);
+  }
+
+  clear(): void {
+    this.amount = "";
+  }
+
+  submit(): void {
+    this.paymentService.getCash(this.amount)
+      .then((withdrawalResult) => {
+        this.router.navigate(['getting-cash-result']);
+      })
+      .catch((error) => {
+        this.router.navigate(['error', 'cartNotFound', '']);
+      });
   }
 
 }

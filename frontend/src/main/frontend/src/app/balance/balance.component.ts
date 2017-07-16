@@ -20,9 +20,8 @@ export class BalanceComponent implements OnInit {
         this.balance = balance;
       })
       .catch(() => {
-        this.router.navigate(['/error']);
+        this.router.navigate(['error']);
       });
   }
-
 
 }

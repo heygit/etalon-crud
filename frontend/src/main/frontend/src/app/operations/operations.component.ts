@@ -19,9 +19,7 @@ export class OperationsComponent implements OnInit {
   }
 
   getCash(): void {
-    this.authService.logout();
-    this.authService.deleteAllCookies();
-    this.router.navigate(['']);
+    this.router.navigate(['getting-cash']);
   }
 
 

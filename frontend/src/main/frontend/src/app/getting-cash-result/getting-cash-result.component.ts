@@ -1,6 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 
-import {Router} from "@angular/router";
+import {Params, Router} from "@angular/router";
+import {WithdrawalResultModel} from "../model/withdrawal-result-model";
+import {PaymentService} from "../service/payment.service";
 
 
 @Component({
@@ -9,9 +11,18 @@ import {Router} from "@angular/router";
 })
 export class GettingCashResultComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  withdrawalResult: WithdrawalResultModel;
+
+  constructor(private router: Router, private paymentService: PaymentService) {}
 
   ngOnInit(): void {
+    this.paymentService.getWithdrawalResult()
+      .then((withdrawalResult) => {
+        this.withdrawalResult = withdrawalResult;
+      })
+      .catch((error) => {
+        this.router.navigate(['error']);
+      });
   }
 
 }

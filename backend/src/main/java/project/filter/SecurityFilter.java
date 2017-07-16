@@ -25,6 +25,10 @@ public class SecurityFilter implements Filter {
             return;
         }
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        if (httpServletRequest.getMethod().equals("GET")) {
+            chain.doFilter(request, response);
+            return;
+        }
         Cookie cookieToken = WebUtils.getCookie(httpServletRequest, COOKIE_TOKEN_KEY);
         if (cookieToken == null) {
             chain.doFilter(request, response);

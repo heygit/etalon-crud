@@ -16,6 +16,7 @@ import project.service.PaymentService;
 import project.service.model.Balance;
 import project.service.model.WithdrawalResult;
 
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +47,7 @@ public class PaymentController {
         final Map<String, Object> response = new HashMap<>();
         final String card = authSessionBean.getAuthorizedCard();
         try {
-            Balance balance = new Balance("1111-3333", System.currentTimeMillis(), BigDecimal.TEN);//paymentService.getBalance(card);TODO
+            Balance balance = new Balance("11113333", System.currentTimeMillis(), BigDecimal.TEN);//TODO:paymentService.getBalance(card);
             BalanceModel balanceModel = conversionService.convert(balance, BalanceModel.class);
             response.put(BALANCE_KEY, balanceModel);
         } catch (CardNotFoundException ex) {
@@ -56,16 +57,16 @@ public class PaymentController {
         return response;
     }
 
-    //TODO: REWRITE TO BINDERS
-
     @RequestMapping(value = "getCash", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getCash(@RequestParam(AMOUNT_KEY) String amountParam) {
+    public Map<String, Object> getCash(@RequestParam(AMOUNT_KEY) String amountParam, HttpSession httpSession) {
         final Map<String, Object> response = new HashMap<>();
         final String card = authSessionBean.getAuthorizedCard();
         final BigDecimal amount = new BigDecimal(amountParam);
         try {
-            WithdrawalResult withdrawalResult = paymentService.getCash(card, amount);
+            WithdrawalResult withdrawalResult = new WithdrawalResult("11113333", System.currentTimeMillis(),
+                    BigDecimal.TEN, BigDecimal.TEN);//TODO:paymentService.getCash(card, amount);
+            httpSession.setAttribute(WITHDRAWAL_RESULT_KEY, withdrawalResult);
             WithdrawalResultModel result = conversionService.convert(withdrawalResult, WithdrawalResultModel.class);
             response.put(WITHDRAWAL_RESULT_KEY, result);
         } catch (CardNotFoundException ex) {
@@ -73,6 +74,19 @@ public class PaymentController {
         } catch (MoneyOperationException ex) {
             response.put(ERROR_KEY, MONEY_OPERATION_FAILURE);
         }
+
+        return response;
+    }
+
+    @RequestMapping(value = "getWithdrawalResult", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> getWithdrawalResult(HttpSession httpSession) {
+        final Map<String, Object> response = new HashMap<>();
+
+        WithdrawalResult withdrawalResult = (WithdrawalResult) httpSession.getAttribute(WITHDRAWAL_RESULT_KEY);
+        httpSession.setAttribute(WITHDRAWAL_RESULT_KEY, null);
+        WithdrawalResultModel result = conversionService.convert(withdrawalResult, WithdrawalResultModel.class);
+        response.put(WITHDRAWAL_RESULT_KEY, result);
 
         return response;
     }
